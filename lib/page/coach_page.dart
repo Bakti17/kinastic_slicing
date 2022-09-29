@@ -5,9 +5,10 @@ class CoachPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(),
-      bottomNavigationBar: NavBar(),
-    );
+    // return Scaffold(
+    //   body: Container(),
+    //   bottomNavigationBar: NavBar(),
+    // );
+    return Container();
   }
 }

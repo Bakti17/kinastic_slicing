@@ -41,7 +41,7 @@ Widget topComponentHome(BuildContext context) {
             clipBehavior: Clip.none,
             fit: StackFit.passthrough,
             children: [
-              Center(child: Icon(Icons.notifications_none_rounded)),
+              const Center(child: Icon(Icons.notifications_none_rounded)),
               Padding(
                 padding: const EdgeInsets.only(top: 3, right: 3),
                 child: Align(

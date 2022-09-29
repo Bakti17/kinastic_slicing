@@ -10,71 +10,72 @@ class NavBar extends StatefulWidget {
 
 class _NavBarState extends State<NavBar> {
   int index = 0;
+  @override
+  void initState() {
+    index = context.read<IndexNavbarCubit>().state;
+    // index =
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      height: resHeight(context, 80),
-      color: Colors.white,
-      child: Stack(
-        children: [
-          AnimatedPositioned(
-            duration: const Duration(milliseconds: 200),
-            left: index == 0
-                ? resWidth(context, 10)
-                : resWidth(context, (10 + (index * 75))),
-            top: 0,
-            child: Container(
-              width: 50,
-              height: 10,
-              decoration: BoxDecoration(
-                  color: selectedColor,
-                  borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(10),
-                      bottomRight: Radius.circular(10))),
+    return BlocListener<IndexNavbarCubit, int>(
+      listener: (context, state) => setState(() => index = state),
+      child: Container(
+        alignment: Alignment.center,
+        height: resHeight(context, 80),
+        color: Colors.white,
+        child: Stack(
+          children: [
+            AnimatedPositioned(
+              duration: const Duration(milliseconds: 200),
+              left: index == 0
+                  ? resWidth(context, 10)
+                  : resWidth(context, (10 + (index * 75))),
+              top: 0,
+              child: Container(
+                width: 50,
+                height: 10,
+                decoration: BoxDecoration(
+                    color: selectedColor,
+                    borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(10),
+                        bottomRight: Radius.circular(10))),
+              ),
             ),
-          ),
-          Row(
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            // mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              navbarItem(
-                  func: () {},
-                  icon: Icons.home_outlined,
-                  selectedIcon: Icons.home,
-                  label: 'home',
-                  id: 0),
-              navbarItem(
-                  func: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const CoachPage())),
-                  icon: Icons.groups_outlined,
-                  selectedIcon: Icons.groups,
-                  label: 'coach',
-                  id: 1),
-              navbarItem(
-                  func: () {},
-                  icon: Icons.insights_outlined,
-                  selectedIcon: Icons.insights,
-                  label: 'insight',
-                  id: 2),
-              navbarItem(
-                  func: () {},
-                  icon: Icons.dashboard_outlined,
-                  selectedIcon: Icons.dashboard,
-                  label: 'explore',
-                  id: 3),
-              navbarItem(
-                  func: () {},
-                  icon: Icons.person_outlined,
-                  selectedIcon: Icons.person,
-                  label: 'profile',
-                  id: 4),
-            ],
-          ),
-        ],
+            Row(
+              // crossAxisAlignment: CrossAxisAlignment.center,
+              // mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                navbarItem(
+                    icon: Icons.home_outlined,
+                    selectedIcon: Icons.home,
+                    label: 'home',
+                    id: 0),
+                navbarItem(
+                    icon: Icons.groups_outlined,
+                    selectedIcon: Icons.groups,
+                    label: 'coach',
+                    id: 1),
+                navbarItem(
+                    icon: Icons.insights_outlined,
+                    selectedIcon: Icons.insights,
+                    label: 'insight',
+                    id: 2),
+                navbarItem(
+                    icon: Icons.dashboard_outlined,
+                    selectedIcon: Icons.dashboard,
+                    label: 'explore',
+                    id: 3),
+                navbarItem(
+                    icon: Icons.person_outlined,
+                    selectedIcon: Icons.person,
+                    label: 'profile',
+                    id: 4),
+              ],
+            ),
+          ],
+        ),
       ),
     );
     // return BottomNavigationBar(
@@ -92,11 +93,10 @@ class _NavBarState extends State<NavBar> {
       {required IconData icon,
       required IconData selectedIcon,
       required String label,
-      required int id,
-      required Function() func}) {
+      required int id}) {
     return GestureDetector(
       onTap: () {
-        func;
+        context.read<IndexNavbarCubit>().setIndex(id);
         setState(() => index = id);
       },
       child: SizedBox(

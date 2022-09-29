@@ -1,25 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:kinastic_slicing/page/page.dart';
 import 'component/component.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'bloc/navigation_bar_index/index_navbar_cubit.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
+// ignore: must_be_immutable
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
+  List list = [
+    const HomePage(),
+    const CoachPage(),
+    const InsightPage(),
+    const ExplorePage(),
+    const ProfilePage()
+  ];
+  PageController pageController = PageController();
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Kinastic App',
-      home: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: const HomePage(),
-        bottomNavigationBar: NavBar(),
-      ),
-    );
+    return MultiBlocProvider(
+        providers: [BlocProvider(create: (context) => IndexNavbarCubit())],
+        child: Builder(builder: (context) {
+          return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'Kinastic App',
+              home: Scaffold(
+                body: BlocListener<IndexNavbarCubit, int>(
+                  listener: (context, state) =>
+                      pageController.jumpToPage(state),
+                  child: PageView.builder(
+                    controller: pageController,
+                    itemCount: list.length,
+                    itemBuilder: ((context, index) => list[index]),
+                    onPageChanged: (value) =>
+                        context.read<IndexNavbarCubit>().setIndex(value),
+                  ),
+                ),
+                bottomNavigationBar: NavBar(),
+              )
+              // home: HomePage(),
+              );
+        }));
   }
 }
 
@@ -34,7 +60,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  int bukan_counter = 0;
 
   void _incrementCounter() {
     setState(() {
