@@ -11,3 +11,6 @@ part 'home_page/search_bar.dart';
 part 'home_page/today_plan.dart';
 part 'home_page/upcoming_activities.dart';
 part 'home_page/recomended_activity.dart';
+
+part 'coach_page/top_card.dart';
+part 'coach_page/top_program.dart';

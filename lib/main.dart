@@ -29,19 +29,21 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
               debugShowCheckedModeBanner: false,
               title: 'Kinastic App',
-              home: Scaffold(
-                body: BlocListener<IndexNavbarCubit, int>(
-                  listener: (context, state) =>
-                      pageController.jumpToPage(state),
-                  child: PageView.builder(
-                    controller: pageController,
-                    itemCount: list.length,
-                    itemBuilder: ((context, index) => list[index]),
-                    onPageChanged: (value) =>
-                        context.read<IndexNavbarCubit>().setIndex(value),
+              home: SafeArea(
+                child: Scaffold(
+                  body: BlocListener<IndexNavbarCubit, int>(
+                    listener: (context, state) =>
+                        pageController.jumpToPage(state),
+                    child: PageView.builder(
+                      controller: pageController,
+                      itemCount: list.length,
+                      itemBuilder: ((context, index) => list[index]),
+                      onPageChanged: (value) =>
+                          context.read<IndexNavbarCubit>().setIndex(value),
+                    ),
                   ),
+                  bottomNavigationBar: NavBar(),
                 ),
-                bottomNavigationBar: NavBar(),
               )
               // home: HomePage(),
               );

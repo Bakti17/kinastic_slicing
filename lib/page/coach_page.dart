@@ -5,10 +5,17 @@ class CoachPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return Scaffold(
-    //   body: Container(),
-    //   bottomNavigationBar: NavBar(),
-    // );
-    return Container();
+    return SizedBox(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 15, 16, 0),
+        child: Column(children: [
+          topCardCoach(context),
+          SizedBox(
+            height: resHeight(context, 25),
+          ),
+          topProgramCoach(context)
+        ]),
+      ),
+    );
   }
 }
