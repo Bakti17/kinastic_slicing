@@ -2,7 +2,6 @@ part of 'page.dart';
 
 class CoachPage extends StatelessWidget {
   const CoachPage({super.key});
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -13,7 +12,11 @@ class CoachPage extends StatelessWidget {
           SizedBox(
             height: resHeight(context, 25),
           ),
-          topProgramCoach(context)
+          topProgramCoach(context),
+          SizedBox(
+            height: resHeight(context, 25),
+          ),
+          assessments(context)
         ]),
       ),
     );

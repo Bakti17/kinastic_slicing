@@ -12,8 +12,8 @@ Widget upcomingActivities(BuildContext context) {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const CoachPage()));
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) => const CoachPage()));
             },
             child: Text(
               'See more',

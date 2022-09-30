@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
               title: 'Kinastic App',
               home: SafeArea(
                 child: Scaffold(
+                  // resizeToAvoidBottomInset: false,
                   body: BlocListener<IndexNavbarCubit, int>(
                     listener: (context, state) =>
                         pageController.jumpToPage(state),

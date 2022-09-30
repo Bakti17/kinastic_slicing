@@ -14,3 +14,4 @@ part 'home_page/recomended_activity.dart';
 
 part 'coach_page/top_card.dart';
 part 'coach_page/top_program.dart';
+part 'coach_page/assessments.dart';

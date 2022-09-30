@@ -35,7 +35,7 @@ class _NavBarState extends State<NavBar> {
               top: 0,
               child: Container(
                 width: 50,
-                height: 10,
+                height: 5,
                 decoration: BoxDecoration(
                     color: selectedColor,
                     borderRadius: const BorderRadius.only(
