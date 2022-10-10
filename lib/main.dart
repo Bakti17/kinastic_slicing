@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kinastic_slicing/page/page.dart';
 import 'component/component.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,22 +29,27 @@ class MyApp extends StatelessWidget {
         child: Builder(builder: (context) {
           return MaterialApp(
               debugShowCheckedModeBanner: false,
+              theme: ThemeData(primaryColor: Colors.white),
               title: 'Kinastic App',
-              home: SafeArea(
-                child: Scaffold(
-                  // resizeToAvoidBottomInset: false,
-                  body: BlocListener<IndexNavbarCubit, int>(
-                    listener: (context, state) =>
-                        pageController.jumpToPage(state),
-                    child: PageView.builder(
-                      controller: pageController,
-                      itemCount: list.length,
-                      itemBuilder: ((context, index) => list[index]),
-                      onPageChanged: (value) =>
-                          context.read<IndexNavbarCubit>().setIndex(value),
+              home: AnnotatedRegion<SystemUiOverlayStyle>(
+                value: SystemUiOverlayStyle.dark
+                    .copyWith(statusBarColor: Colors.white.withOpacity(0.99)),
+                child: SafeArea(
+                  child: Scaffold(
+                    // resizeToAvoidBottomInset: false,
+                    body: BlocListener<IndexNavbarCubit, int>(
+                      listener: (context, state) =>
+                          pageController.jumpToPage(state),
+                      child: PageView.builder(
+                        controller: pageController,
+                        itemCount: list.length,
+                        itemBuilder: ((context, index) => list[index]),
+                        onPageChanged: (value) =>
+                            context.read<IndexNavbarCubit>().setIndex(value),
+                      ),
                     ),
+                    bottomNavigationBar: NavBar(),
                   ),
-                  bottomNavigationBar: NavBar(),
                 ),
               )
               // home: HomePage(),
